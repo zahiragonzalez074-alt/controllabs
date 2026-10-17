@@ -11,7 +11,8 @@ router.post('/', UserController.createUser);
 router.put('/:id/accept', UserController.acceptUserInventory);
 router.get('/:id', UserController.getUserById);
 router.patch('/', UserController.changesUserpassword);
-router.patch('/:id/status',UserController.ChangeUserStatus)
+router.patch('/:id/status',UserController.ChangeUserStatus);
+router.get('/', UserController.getAllUsers);
 //cada ruta se redirige al controlador
 
 export default router;
