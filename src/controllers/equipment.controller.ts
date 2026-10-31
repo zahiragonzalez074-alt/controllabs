@@ -1,4 +1,3 @@
-
 //el controlador es una clase 
 //recibe parametros y cuerpo
 //se encarga de llamar al servicio(base de datos)
