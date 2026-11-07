@@ -1,4 +1,3 @@
-//es necesario un middleware para cada modulo
 import { Request, Response, NextFunction } from 'express';//importaciones basicas de un middleware
 import { ICreateLoanDTO } from '../dtos/loan.dto';//interfaz dto
 
@@ -9,10 +8,10 @@ const isCreateLoanDTO = (value: unknown): value is ICreateLoanDTO => {//metodo q
 
     const loan = value as Record<string, unknown>;
     return (
-        typeof loan.aula === 'string' && loan.aula.trim() !== '' &&
-        typeof loan.numeroPC === 'number' && Number.isInteger(loan.numeroPC) &&
-        typeof loan.nombreGuardaEntrega === 'string' && loan.nombreGuardaEntrega.trim() !== '' &&
-        typeof loan.instructorRecibe === 'string' && loan.instructorRecibe.trim() !== ''
+        typeof loan.room_id === 'string' && loan.room_id.trim() !== '' &&
+        typeof loan.instructor_id === 'string' && loan.instructor_id.trim() !== '' &&
+        typeof loan.guarda_id === 'string' && loan.guarda_id.trim() !== '' &&
+        typeof loan.numero_pc === 'number' && Number.isInteger(loan.numero_pc)
     );
 };
 
