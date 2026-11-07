@@ -1,4 +1,3 @@
-//es necesario un middleware para cada modulo
 import { Request, Response, NextFunction } from 'express';//importaciones basicas de un middleware
 import { ICreateUserDTO } from '../dtos/User.dto';//interfaz dto
 
@@ -9,10 +8,10 @@ const isCreateUserDTO = (value: unknown): value is ICreateUserDTO => {//metodo q
 
       const User = value as Record<string, unknown>;
     return (
-        typeof User.Nombre === 'string' && User.Nombre.trim() !== '' &&
-        typeof User.Rol === 'string' && User.Rol.trim() !== '' &&
-        typeof User.documento === 'string' && User.documento.trim() !== '' &&
-        typeof User.aula === 'string' && User.aula.trim() !== ''
+        typeof User.email === 'string' && User.email.trim() !== '' &&
+        typeof User.nombre === 'string' && User.nombre.trim() !== '' &&
+        typeof User.rol === 'string' && User.rol.trim() !== '' &&
+        typeof User.activo === 'boolean'
     );
 };
 
