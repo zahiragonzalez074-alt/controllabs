@@ -1,17 +1,16 @@
-//es necesario un middleware para cada modulo
 import { Request, Response, NextFunction } from 'express';//importaciones basicas de un middleware
-import { ICreateEnvironmetDTO} from '../dtos/environment.dto';//interfaz dto
+import { ICreateEnvironmentDTO} from '../dtos/environment.dto';//interfaz dto
 
-const isCreateEnvironmentDTO = (value: unknown): value is ICreateEnvironmetDTO => { //metodo que efectua las tareas de validacion
+const isCreateEnvironmentDTO = (value: unknown): value is ICreateEnvironmentDTO => { //metodo que efectua las tareas de validacion
     if (typeof value !== 'object' || value === null || Array.isArray(value)) {
         return false;
     }
 
     const Environment = value as Record<string, unknown>;
     return (
-        typeof Environment.ubicacion === 'string' && Environment.ubicacion.trim() !== '' &&
-        typeof Environment.capacidad === 'number' && Number.isInteger(Environment.capacidad) &&
-        typeof Environment.tipo_espacio === 'string' && Environment.tipo_espacio.trim() !== '' &&
+        typeof Environment.nombre === 'string' && Environment.nombre.trim() !== '' &&
+        typeof Environment.bloque === 'string' && Environment.bloque.trim() !== '' &&
+        typeof Environment.capacidad_pcs === 'number' && Number.isInteger(Environment.capacidad_pcs) &&
         typeof Environment.estado === 'string' && Environment.estado.trim() !== ''
     );
 };
