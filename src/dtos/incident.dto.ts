@@ -1,6 +1,7 @@
 export interface ICreateIncidentDTO {
-  novedad: string;
-  num_equipo: number;
-  estado_novedad: string;
-  num_incidencias: number;
+  equipment_id: string;
+  reported_by: string;
+  descripcion: string;
+  prioridad: string;
+  estado: string;
 }

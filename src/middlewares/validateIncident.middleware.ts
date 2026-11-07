@@ -1,4 +1,3 @@
-//es necesario un middleware para cada modulo
 import { Request, Response, NextFunction } from 'express'; //importaciones basicas de un middleware
 import { ICreateIncidentDTO } from '../dtos/incident.dto'; //interfaz dto
 
@@ -9,10 +8,11 @@ const isCreateIncidentDTO = (value: unknown): value is ICreateIncidentDTO => { /
 
     const Incident = value as Record<string, unknown>;
     return (
-        typeof Incident.novedad === 'string' && Incident.novedad.trim() !== '' &&
-        typeof Incident.num_equipo === 'number' && Number.isInteger(Incident.num_equipo) &&
-        typeof Incident.estado_novedad === 'string' && Incident.estado_novedad.trim() !== '' &&
-        typeof Incident.num_incidencias === 'number' && Number.isInteger(Incident.num_incidencias)
+        typeof Incident.equipment_id === 'string' && Incident.equipment_id.trim() !== '' &&
+        typeof Incident.reported_by === 'string' && Incident.reported_by.trim() !== '' &&
+        typeof Incident.descripcion === 'string' && Incident.descripcion.trim() !== '' &&
+        typeof Incident.prioridad === 'string' && Incident.prioridad.trim() !== '' &&
+        typeof Incident.estado === 'string' && Incident.estado.trim() !== ''
     );
 };
 
