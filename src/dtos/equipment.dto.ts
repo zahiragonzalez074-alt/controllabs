@@ -1,6 +1,7 @@
 export interface ICreateEquipmentDTO {
-  ambiente: string;
-  num_equipo: number;
+  placa_sena: string;
+  codigo_activo: string;
+  tipo: string;
+  room_id: string;
   estado: string;
-  ubicacion: string;
 }

@@ -1,5 +1,3 @@
-
-//es necesario un middleware para cada modulo
 import { Request, Response, NextFunction } from 'express'; //importaciones basicas de un middleware
 import { ICreateEquipmentDTO } from '../dtos/equipment.dto'; //interfaz dto
 
@@ -10,10 +8,11 @@ const isCreateEquipmentDTO = (value: unknown): value is ICreateEquipmentDTO => {
 
     const Equipment = value as Record<string, unknown>;
     return (
-        typeof Equipment.ambiente === 'string' && Equipment.ambiente.trim() !== '' &&
-        typeof Equipment.num_equipo === 'number' && Number.isInteger(Equipment.num_equipo) &&
-        typeof Equipment.estado === 'string' && Equipment.estado.trim() !== '' &&
-        typeof Equipment.ubicacion === 'string' && Equipment.ubicacion.trim() !== ''
+        typeof Equipment.placa_sena === 'string' && Equipment.placa_sena.trim() !== '' &&
+        typeof Equipment.codigo_activo === 'string' && Equipment.codigo_activo.trim() !== '' &&
+        typeof Equipment.tipo === 'string' && Equipment.tipo.trim() !== '' &&
+        typeof Equipment.room_id === 'string' && Equipment.room_id.trim() !== '' &&
+        typeof Equipment.estado === 'string' && Equipment.estado.trim() !== ''
     );
 };
 
