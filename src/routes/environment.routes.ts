@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { environmentController } from '../controllers/environment.controller';
+import { validateEnvironmentPayload } from '../middlewares/validateEnvironment.middleware';
 
 const router = Router();
 //los parametros de consulta son opcionales
@@ -7,7 +8,7 @@ const router = Router();
 //verifican que la ruta que se solicita existe para poder hacer la consulta
 //cada ruta llama un metodo que debe estar definida en el contorlador
 router.get('/', environmentController.getEnvironments);
-router.post('/', environmentController.createEnvironment);
+router.post('/', validateEnvironmentPayload, environmentController.createEnvironment);
 router.patch('/:id', environmentController.updateEnvironment);
 //cada ruta se redirige al controlador
 

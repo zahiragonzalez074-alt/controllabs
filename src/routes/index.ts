@@ -2,7 +2,7 @@
 import loanRoutes from './loan.routes';
 import UserRoutes from './user.routes';
 import EnvironmentRoutes from './environment.routes';
-import EquipmentRoutes  from './environment.routes';
+import EquipmentRoutes from './equipment.routes';
 import IncidentRoutes from './incident.routes';
 
 const router = Router();
