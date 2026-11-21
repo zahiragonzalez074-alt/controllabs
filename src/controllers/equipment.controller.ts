@@ -14,12 +14,12 @@ export class EquipmentController {
 
     //Listar todos los equipos existentes o filtrar aquellos asignados a un ambiente específico.
   public static getAllEquipment = (req: Request, res: Response): void => {
-    const { id_ambiente } = req.query;
+    const { room_id } = req.query;
 
-    if (id_ambiente) {
+    if ( room_id ) {
       res.status(501).json({
         success: false,
-        message: `La consulta de equipos del ambiente ${id_ambiente} todavía no está implementada.`
+        message: `La consulta de equipos del ambiente ${ room_id } todavía no está implementada.`
       });
       return;
     }
