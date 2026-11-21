@@ -10,7 +10,7 @@ export interface Loan extends ICreateLoanDTO {
 }
 
 export interface LoanFilters {
-  roomId?: string;
+  room_id?: string;
 }
 
 export interface LoanRepository {
