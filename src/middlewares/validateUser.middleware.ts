@@ -6,8 +6,17 @@ const isCreateUserDTO = (value: unknown): value is ICreateUserDTO => {//metodo q
         return false;
     }
 
-      const User = value as Record<string, unknown>;
+    const User = value as Record<string, unknown>;
+
+    const allowedFields = new Set([
+        'email',
+        'nombre',
+        'rol',
+        'activo'
+    ]);
+
     return (
+        Object.keys(User).every((key) => allowedFields.has(key)) &&
         typeof User.email === 'string' && User.email.trim() !== '' &&
         typeof User.nombre === 'string' && User.nombre.trim() !== '' &&
         typeof User.rol === 'string' && User.rol.trim() !== '' &&
