@@ -7,7 +7,16 @@ const isCreateEnvironmentDTO = (value: unknown): value is ICreateEnvironmentDTO 
     }
 
     const Environment = value as Record<string, unknown>;
+
+    const allowedFields = new Set([
+        'nombre',
+        'bloque',
+        'capacidad_pcs',
+        'estado'
+    ]);
+
     return (
+        Object.keys(Environment).every((key) => allowedFields.has(key)) &&
         typeof Environment.nombre === 'string' && Environment.nombre.trim() !== '' &&
         typeof Environment.bloque === 'string' && Environment.bloque.trim() !== '' &&
         typeof Environment.capacidad_pcs === 'number' && Number.isInteger(Environment.capacidad_pcs) &&
