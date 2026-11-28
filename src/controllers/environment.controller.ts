@@ -2,32 +2,58 @@
 //recibe parametros y cuerpo
 //se encarga de llamar al servicio(base de datos)
 import { Request, Response } from 'express';
+import { environmentService } from '../container';
+import { DomainError } from '../errors/domain.error';
+import { ICreateEnvironmentDTO } from '../dtos/environment.dto';
 
-//metodos
 export class environmentController {
-   // Listar todos los ambientes
-  public static getEnvironments = (req: Request, res: Response): void => {
-    res.status(501).json({
-      success: false,
-      message: 'La consulta de todos los ambientes todavía no está implementada.'
+
+  public static getEnvironments = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const { bloque, estado } = req.query;
+
+    if (bloque !== undefined && typeof bloque !== 'string') {
+      throw new DomainError(
+        'VALIDATION_ERROR',
+        'El filtro bloque debe ser un texto.'
+      );
+    }
+
+    if (estado !== undefined && typeof estado !== 'string') {
+      throw new DomainError(
+        'VALIDATION_ERROR',
+        'El filtro estado debe ser un texto.'
+      );
+    }
+
+    const environments = await environmentService.getEnvironments({
+      bloque,
+      estado
     });
+
+    res.status(200).json({ success: true, data: environments });
   };
 
- // Crear un ambiente
-  public static createEnvironment = (req: Request, res: Response): void => {
-    res.status(501).json({
-      success: false,
-      message: 'El registro de ambientes todavía no está implementado.'
-    });
+  public static createEnvironment = async (
+    req: Request<Record<string, string>, unknown, ICreateEnvironmentDTO>,
+    res: Response
+  ): Promise<void> => {
+    const environment = await environmentService.createEnvironment(req.body);
+
+    res.status(201).json({ success: true, data: environment });
   };
 
-  // Actualizar atributos específicos de un ambiente
-  public static updateEnvironment = (req: Request, res: Response): void => {
-    const { id } = req.params;
+  public static updateEnvironment = async (
+    req: Request<{ id: string }, unknown, Partial<ICreateEnvironmentDTO>>,
+    res: Response
+  ): Promise<void> => {
+    const environment = await environmentService.updateEnvironment(
+      Number(req.params.id),
+      req.body
+    );
 
-    res.status(501).json({
-      success: false,
-      message: `La actualización del ambiente ${id} todavía no está implementada.`
-    });
+    res.status(200).json({ success: true, data: environment });
   };
 }
