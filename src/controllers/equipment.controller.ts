@@ -2,41 +2,50 @@
 //recibe parametros y cuerpo
 //se encarga de llamar al servicio(base de datos)
 import { Request, Response } from 'express';
+import { equipmentService } from '../container';
+import { DomainError } from '../errors/domain.error';
+import { ICreateEquipmentDTO } from '../dtos/equipment.dto';
 
 export class EquipmentController {
-    //Registrar un nuevo equipo vinculado a un ambiente de laboratorio.
-  public static createEquipment = (req: Request, res: Response): void => {
-    res.status(501).json({
-      success: false,
-      message: 'El registro de equipos todavía no está implementado.'
-    });
+
+  public static createEquipment = async (
+    req: Request<Record<string, string>, unknown, ICreateEquipmentDTO>,
+    res: Response
+  ): Promise<void> => {
+    const equipment = await equipmentService.createEquipment(req.body);
+
+    res.status(201).json({ success: true, data: equipment });
   };
 
-    //Listar todos los equipos existentes o filtrar aquellos asignados a un ambiente específico.
-  public static getAllEquipment = (req: Request, res: Response): void => {
+  public static getAllEquipment = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
     const { room_id } = req.query;
 
-    if ( room_id ) {
-      res.status(501).json({
-        success: false,
-        message: `La consulta de equipos del ambiente ${ room_id } todavía no está implementada.`
-      });
-      return;
+    if (room_id !== undefined && typeof room_id !== 'string') {
+      throw new DomainError(
+        'VALIDATION_ERROR',
+        'El filtro room_id debe ser un texto.'
+      );
     }
 
-    res.status(501).json({
-      success: false,
-      message: 'La consulta de todos los equipos todavía no está implementada.'
+    const equipment = await equipmentService.getEquipment({
+      room_id
     });
-  };
-  
-  //Actualizar de forma parcial el estado técnico de un equipo
-  public static updateEquipment = (req: Request, res: Response): void => {
-    const { id } = req.params;
 
-    res.status(501).json({
-      success: false,
-      message: `La actualización del equipo ${id} todavía no está implementada.`
-    });
+    res.status(200).json({ success: true, data: equipment });
+  };
+
+  public static updateEquipment = async (
+    req: Request<{ id: string }, unknown, Pick<ICreateEquipmentDTO, 'estado'>>,
+    res: Response
+  ): Promise<void> => {
+    const equipment = await equipmentService.updateEquipment(
+      Number(req.params.id),
+      req.body
+    );
+
+    res.status(200).json({ success: true, data: equipment });
   };
 }
